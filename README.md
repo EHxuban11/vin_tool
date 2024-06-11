@@ -1,4 +1,7 @@
 
+#
+
+
 # Option 1
 ```
 {
@@ -41,6 +44,10 @@ VIN: Vehicle Identification Number, unique code for each vehicle.
 - 17 characters long
 - It contains de manufacturing date, the manufacturer, the country, the model, the class, the region
 - It is used to identify vehicles, motorcycles, scooters, mopeds, etc.
+Source code Pays (2 first characters): https://epicvin.com/fr/blog/vin-country-codes-of-the-vehicles
+Source code Manufacturer (3 first characters): https://en.wikibooks.org/wiki/Vehicle_Identification_Numbers_(VIN_codes)/World_Manufacturer_Identifier_(WMI)
+
+
 # Structure of a VIN
 - The first 3 characters are the WMI (World Manufacturer Identifier).
 - The next 6 characters are the VDS (Vehicle Descriptor Section).

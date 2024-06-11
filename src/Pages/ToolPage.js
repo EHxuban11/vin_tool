@@ -104,9 +104,7 @@ function ToolPage() {
                         </Button>
                     </ButtonGroup>
                 </Box>
-                <Typography variant="h4" gutterBottom>
-                    Welcome to ToolPage
-                </Typography>
+                
                 {view === 'single' && (
                     <TextField
                         label="Enter VIN"

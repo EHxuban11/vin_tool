@@ -7,14 +7,14 @@
 {
   "vin": "JH4KA7561PC008269",
   "country": "Japan",
-  "manufacturer": "Only available for premium subscribers.",
-  "model": "Only available for premium subscribers.",
-  "class": "Only available for premium subscribers.",
+  "manufacturer": "Acura",
+  "model": "Legend",
+  "class": "Sedan/Saloon",
   "region": "Asia",
   "wmi": "JH4",
   "vds": "KA7561",
   "vis": "PC008269",
-  "year": 2023
+  "year": "1993"
 }
 ```
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Typography, Box, Paper, Container, Tooltip, ButtonGroup, Button } from '@mui/material';
-import VINAnalysis from '../Components/VINAnalysisComponent';
 
 const isValidVIN = (vin) => {
     const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/;
@@ -137,7 +136,7 @@ function ToolPage() {
                         Analysis Area
                     </Typography>
                     {isVinValid && (
-                        <VINAnalysis vin={vin} />
+                        <Typography variant="body1"> Results will go here </Typography>
                     )}
                 </Box>
             </Paper>

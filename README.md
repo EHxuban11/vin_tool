@@ -63,7 +63,9 @@ WMI: World Manufacturer Identifier, first 3 characters of the VIN.
 VDS: Vehicle Descriptor Section, characters 4 to 9 of the VIN.
 - It identifies the vehicle attributes.
 - It is unique for each vehicle.
-
+VDS is the hardest part to decode, it's manufacturer specific too. https://en.wikibooks.org/wiki/Vehicle_Identification_Numbers_(VIN_codes)#Table_of_Contents
+Check all the models of a brand here !!!:: https://vincheck.me/
+For example: https://vincheck.me/audi      (scroll down in that page to see the list of models)
 # What is a VIS ?
 VIS: Vehicle Identifier Section, characters 10 to 17 of the VIN.
 - It identifies the vehicle serial number.

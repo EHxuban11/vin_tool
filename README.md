@@ -1,39 +1,7 @@
+# Google dorks for finding VIN xlsx files
+filetype:xls OR filetype:xlsx "VIN" OR "Vehicle Identification Number"
 
-#
 
-
-# Option 1
-```
-{
-  "vin": "JH4KA7561PC008269",
-  "country": "Japan",
-  "manufacturer": "Acura",
-  "model": "Legend",
-  "class": "Sedan/Saloon",
-  "region": "Asia",
-  "wmi": "JH4",
-  "vds": "KA7561",
-  "vis": "PC008269",
-  "year": "1993"
-}
-```
-
-# Option 2 https://github.com/opencars/vin-decoder-api
-{
-  "vehicle": {
-    "check_digit": true,
-    "country": "United States",
-    "manufacturer": "Tesla, Inc.",
-    "region": "North America",
-    "serial": "010543",
-    "year": 2016
-  },
-  "vin": {
-    "vds": "XCCE40",
-    "vis": "GF010543",
-    "wmi": "5YJ"
-  }
-}
 
 
 
@@ -77,3 +45,99 @@ Check Digit: character 9 of the VIN.
 - It is calculated using a mathematical formula.
 - It is unique for each VIN.
 
+
+
+
+
+# JSON structure of database
+Explanation: type is the first 8 characters of the VIN
+VIN Prefix	Make	Model
+ZASPATAW	ALFA ROMEO	TONALE
+ZASPATDW	ALFA ROMEO	TONALE
+ZASPATSW	ALFA ROMEO	TONALE
+ZASPATCW	ALFA ROMEO	TONALE
+WAUVPBFF	AUDI	A3
+WAUNPBFF	AUDI	A3
+WAUSPBFF	AUDI	A3
+WAUTPBFF	AUDI	A3
+WAUMPBFF	AUDI	A3
+WAUUPBFF	AUDI	A3
+WAUSPBFF	AUDI	A3
+WAUTPBFF	AUDI	A3
+WAUUPBFF	AUDI	A3
+
+{
+  "vehicles": [
+    {
+      "VIN_prefix": "JH4KA756",
+      "details": {
+        "manufacturer": "Acura",
+        "model": "Legend",
+      }
+    },
+    {
+      "type": "1HGCM8263",
+      "details": {
+        "country": "USA",
+        "manufacturer": "Honda",
+        "model": "Accord",
+        "region": "North America",
+        "year": "2003"
+      }
+    },
+    {
+      "type": "WDBUF70J",
+      "details": {
+        "country": "Germany",
+        "manufacturer": "Mercedes-Benz",
+        "model": "E-Class",
+        "region": "Europe",
+        "year": "2004"
+      }
+    },
+    {
+      "type": "2GCEK19T",
+      "details": {
+        "country": "Canada",
+        "manufacturer": "Chevrolet",
+        "model": "Silverado",
+        "region": "North America",
+        "year": "1999"
+      }
+    }
+  ]
+}
+
+
+# Option 1
+```
+{
+  "vin": "JH4KA7561PC008269",
+  "country": "Japan",
+  "manufacturer": "Acura",
+  "model": "Legend",
+  "class": "Sedan/Saloon",
+  "region": "Asia",
+  "wmi": "JH4",
+  "vds": "KA7561",
+  "vis": "PC008269",
+  "year": "1993"
+}
+```
+
+# Option 2 https://github.com/opencars/vin-decoder-api
+{
+  "vehicle": {
+    "check_digit": true,
+    "country": "United States",
+    "manufacturer": "Tesla, Inc.",
+    "region": "North America",
+    "serial": "010543",
+    "year": 2016
+  },
+  "vin": {
+    "vds": "XCCE40",
+    "vis": "GF010543",
+    "wmi": "5YJ"
+  }
+}

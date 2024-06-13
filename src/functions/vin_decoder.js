@@ -10,6 +10,12 @@ function getModelYear(vinChar) {
     return yearLookup[vinChar] || ['Unknown'];
 }
 
+function findElectricDetails(vinPrefix) {
+    const electricLookup = loadJson('electric_lookup.json');
+    const vehicle = electricLookup.vehicles.find(vehicle => vehicle.VIN_prefix === vinPrefix);
+    return vehicle ? vehicle.details : { manufacturer: 'Unknown', model: 'Unknown' };
+}
+
 function parseVin(vin) {
     // Load lookup data
     const continentLookup = loadJson('continentLookup.json');
@@ -20,6 +26,10 @@ function parseVin(vin) {
     const wmi = vin.slice(0, 3);
     const vds = vin.slice(3, 9);
     const vis = vin.slice(9);
+    const firstEight = vin.slice(0, 8);
+
+    console.log(`VIN: ${vin}`);
+    console.log(`First 8 characters of VIN: ${firstEight}`);
 
     // Get the continent
     const continentCode = vin[0];
@@ -36,12 +46,17 @@ function parseVin(vin) {
     const yearCode = vin[9];
     const possibleYears = getModelYear(yearCode);
 
+    // Get electric lookup details
+    const electricDetails = findElectricDetails(firstEight);
+
+    console.log(`Electric details: ${JSON.stringify(electricDetails)}`);
+
     return {
         vin: vin,
         country: country,
         manufacturer: manufacturer,
-        model: "",
-        class: "",
+        manufacturer2: electricDetails.manufacturer,
+        model: electricDetails.model,
         region: region,
         wmi: wmi,
         vds: vds,
@@ -51,6 +66,6 @@ function parseVin(vin) {
 }
 
 // Example usage:
-const vin = "3FTBE673ETR678452";
+const vin = "WA1VAAGE7KB000006";
 const vehicleInfo = parseVin(vin);
 console.log(vehicleInfo);

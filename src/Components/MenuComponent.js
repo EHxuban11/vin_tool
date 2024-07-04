@@ -13,7 +13,7 @@ export default function LandingPage() {
             3C VIN tool
           </Typography>
           <Button color="inherit" href="/">Tool</Button>
-          <Button color="inherit" href="/documentation">Docs</Button>
+          {/*<Button color="inherit" href="/documentation">Docs</Button>*/}
           <Button color="inherit" href="https://www.fleeti.co/">Fleeti</Button>
         </Toolbar>
       </AppBar>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Box, Paper, Container, Tooltip, ButtonGroup, Button } from '@mui/material';
+import { TextField, Typography, Box, Paper, Container, Tooltip, ButtonGroup, Button, IconButton } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import VinAnalysisComponent from '../Components/VinAnalysisComponent';
 
 const isValidVIN = (vin) => {
     const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/;
@@ -79,9 +81,15 @@ function ToolPage() {
 
     const handleViewChange = (newView) => {
         setView(newView);
-        if (newView === 'csv') {
+        if (newView === 'excel') {
             alert('This feature is not available yet');
         }
+    };
+
+    const handleUseSampleVin = () => {
+        const sampleVin = '5YJ3E1EA7HF000337'; 
+        setVin(sampleVin);
+        setIsVinValid(isValidVIN(sampleVin));
     };
 
     return (
@@ -96,24 +104,32 @@ function ToolPage() {
                             Single VIN
                         </Button>
                         <Button
-                            variant={view === 'csv' ? 'contained' : 'outlined'}
-                            onClick={() => handleViewChange('csv')}
+                            variant={view === 'excel' ? 'contained' : 'outlined'}
+                            onClick={() => handleViewChange('excel')}
                         >
-                            CSV VIN
+                            Excel VIN
                         </Button>
                     </ButtonGroup>
                 </Box>
-                
+
                 {view === 'single' && (
-                    <TextField
-                        label="Enter VIN"
-                        variant="outlined"
-                        value={vin}
-                        onChange={handleVinChange}
-                        inputProps={{ maxLength: 17 }}
-                        fullWidth
-                        sx={{ marginBottom: 2 }}
-                    />
+                    <Box display="flex" alignItems="center">
+                        <TextField
+                            label="Enter VIN"
+                            variant="outlined"
+                            value={vin}
+                            onChange={handleVinChange}
+                            inputProps={{ maxLength: 17 }}
+                            fullWidth
+                            sx={{ marginBottom: 2 }}
+                        />
+                        <IconButton
+                            onClick={handleUseSampleVin}
+                            sx={{ marginLeft: 1 }}
+                        >
+                            <HelpOutlineIcon />
+                        </IconButton>
+                    </Box>
                 )}
                 <Box>
                     <Typography variant="body1">
@@ -122,21 +138,15 @@ function ToolPage() {
                     <Typography variant="body1">
                         Valid VIN: <Typography component="span" sx={{ display: 'inline-block', fontWeight: 'medium', backgroundColor: '#e0e0e0', padding: '2px 8px', borderRadius: '4px', marginLeft: '4px' }}>{isVinValid ? 'Yes' : 'No'}</Typography>
                     </Typography>
-                    <Typography variant="body1">
-                        Real VIN: <Typography component="span" sx={{ display: 'inline-block', fontWeight: 'medium', backgroundColor: '#e0e0e0', padding: '2px 8px', borderRadius: '4px', marginLeft: '4px' }}>?</Typography>
-                    </Typography>
                 </Box>
                 <Box mt={2}>
                     <Typography variant="body1">
                         VIN: {highlightVIN(vin)}
                     </Typography>
                 </Box>
-                <Box mt={4}>
-                    <Typography variant="h5">
-                        Analysis Area
-                    </Typography>
+                <Box mt={2}>
                     {isVinValid && (
-                        <Typography variant="body1"> Results will go here </Typography>
+                        <VinAnalysisComponent vin={vin} />
                     )}
                 </Box>
             </Paper>

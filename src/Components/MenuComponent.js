@@ -14,6 +14,10 @@ export default function LandingPage() {
           </Typography>
           <Button color="inherit" href="/">Tool</Button>
           <Button color="inherit" href="/CsvPage">Fota csv editor</Button>
+          <Button color="inherit" href="/imei-generator">IMEI generator</Button>
+          <Button color="inherit" href="/vin-generator">VIN generator</Button>
+
+
 
           {/*<Button color="inherit" href="/documentation">Docs</Button>*/}
           <Button color="inherit" href="https://www.fleeti.co/">Fleeti</Button>

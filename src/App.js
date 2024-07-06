@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import MenuComponent from './Components/MenuComponent';
-import LandingPage from './Pages/ToolPage';
+import VinDecoderPage from './Pages/VinDecoderPage';
 import DocumentationPage from './Pages/DocumentationPage';
 import CsvPage from './Pages/CsvPage';
 import ImeiGeneratorPage from './Pages/ImeiGeneratorPage';
@@ -16,7 +16,8 @@ function App() {
       <div className="App">
         <MenuComponent />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<VinDecoderPage />} />
+          <Route path="/vin-decoder" element={<VinDecoderPage />} />
           <Route path="/documentation" element={<DocumentationPage />} />
           <Route path="/CsvPage" element={<CsvPage />} />
           <Route path="/imei-generator" element={<ImeiGeneratorPage />} />

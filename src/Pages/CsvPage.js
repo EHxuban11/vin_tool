@@ -139,7 +139,7 @@ const CsvPage = () => {
                             overflowY: 'auto', 
                             marginBottom: 2, 
                             '&::placeholder': {
-                                color: 'rgba(0, 0, 0, 0.3)', // Lighter placeholder text
+                                color: 'rgba(0, 0, 0, 0.3)',
                             }
                         }}
                     />
@@ -158,7 +158,7 @@ const CsvPage = () => {
                         {isDragActive ? (
                             <Typography>Drop the files here...</Typography>
                         ) : (
-                            <Typography>Drag 'n' drop a CSV file here, or click to select a file</Typography>
+                            <Typography>Select file</Typography>
                         )}
                     </Box>
                 </Box>

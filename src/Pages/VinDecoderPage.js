@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Box, Paper, Container, Tooltip, ButtonGroup, Button, IconButton } from '@mui/material';
+import { TextField, Typography, Box, Paper, Container, Tooltip, ButtonGroup, Button, IconButton, Pagination } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import VinAnalysisComponent from '../Components/VinAnalysisComponent';
 
@@ -68,10 +68,12 @@ const highlightVIN = (vin) => {
     );
 };
 
-function ToolPage() {
+function VinDecoderPage() {
     const [vin, setVin] = useState('');
     const [isVinValid, setIsVinValid] = useState(false);
     const [view, setView] = useState('single');
+    const [batchVins, setBatchVins] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleVinChange = (event) => {
         const newVin = event.target.value.toUpperCase();
@@ -81,16 +83,40 @@ function ToolPage() {
 
     const handleViewChange = (newView) => {
         setView(newView);
-        if (newView === 'excel') {
-            alert('This feature is not available yet');
-        }
     };
 
     const handleUseSampleVin = () => {
-        const sampleVin = '5YJ3E1EA7HF000337'; 
+        const vinList = [
+            '1HGCM82633A123456', // USA
+            '2GCEC19T721234567', // Canada
+            '3FAFP11322R123456', // Mexico
+            '1J4GL58KX4W123456', // USA
+            '5NPEB4AC9CH123456', // South Korea
+            '2T1BURHE7FC123456', // Canada
+            '1C4RJFAG7FC123456', // USA
+            '3N1BC1CP4BL123456', // Mexico
+            '1FMCU9GD7BKA12345', // USA
+            'JHMCM82633C123456', // Japan
+            'VF1BG000341234567', // France
+            'WDBRF40J33F123456'  // Germany
+        ];
+        const randomIndex = Math.floor(Math.random() * vinList.length);
+        const sampleVin = vinList[randomIndex];
         setVin(sampleVin);
         setIsVinValid(isValidVIN(sampleVin));
     };
+
+    const handleBatchVinChange = (event) => {
+        const vinList = event.target.value.split(/\s+/).map(vin => vin.toUpperCase().trim()).filter(vin => vin.length === 17);
+        setBatchVins(vinList);
+        setCurrentPage(1);
+    };
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
+    const currentVin = batchVins[currentPage - 1] || '';
 
     return (
         <Container maxWidth="sm">
@@ -104,10 +130,10 @@ function ToolPage() {
                             Single VIN
                         </Button>
                         <Button
-                            variant={view === 'excel' ? 'contained' : 'outlined'}
-                            onClick={() => handleViewChange('excel')}
+                            variant={view === 'batch' ? 'contained' : 'outlined'}
+                            onClick={() => handleViewChange('batch')}
                         >
-                            Excel VIN
+                            Batch VIN
                         </Button>
                     </ButtonGroup>
                 </Box>
@@ -131,22 +157,50 @@ function ToolPage() {
                         </IconButton>
                     </Box>
                 )}
-                <Box>
-                    <Typography variant="body1">
-                        Characters: <Typography component="span" sx={{ display: 'inline-block', fontWeight: 'medium', backgroundColor: '#e0e0e0', padding: '2px 8px', borderRadius: '4px', marginLeft: '4px' }}>{vin.length}</Typography>
-                    </Typography>
-                    <Typography variant="body1">
-                        Valid VIN: <Typography component="span" sx={{ display: 'inline-block', fontWeight: 'medium', backgroundColor: '#e0e0e0', padding: '2px 8px', borderRadius: '4px', marginLeft: '4px' }}>{isVinValid ? 'Yes' : 'No'}</Typography>
-                    </Typography>
-                </Box>
+
+                {view === 'batch' && (
+                    <TextField
+                        label="Enter Batch VINs (one per line)"
+                        variant="outlined"
+                        onChange={handleBatchVinChange}
+                        multiline
+                        rows={4}
+                        fullWidth
+                        sx={{ marginBottom: 2 }}
+                    />
+                )}
+
+                {view === 'single' && (
+                    <Box>
+                        <Typography variant="body1">
+                            Characters: <Typography component="span" sx={{ display: 'inline-block', fontWeight: 'medium', backgroundColor: '#e0e0e0', padding: '2px 8px', borderRadius: '4px', marginLeft: '4px' }}>{vin.length}</Typography>
+                        </Typography>
+                        <Typography variant="body1">
+                            Valid VIN: <Typography component="span" sx={{ display: 'inline-block', fontWeight: 'medium', backgroundColor: '#e0e0e0', padding: '2px 8px', borderRadius: '4px', marginLeft: '4px' }}>{isVinValid ? 'Yes' : 'No'}</Typography>
+                        </Typography>
+                    </Box>
+                )}
+                
                 <Box mt={2}>
                     <Typography variant="body1">
-                        VIN: {highlightVIN(vin)}
+                        VIN: {highlightVIN(view === 'single' ? vin : currentVin)}
                     </Typography>
                 </Box>
+                
                 <Box mt={2}>
-                    {isVinValid && (
+                    {(isVinValid && view === 'single') && (
                         <VinAnalysisComponent vin={vin} />
+                    )}
+                    {(view === 'batch' && batchVins.length > 0) && (
+                        <>
+                            <Pagination
+                                count={batchVins.length}
+                                page={currentPage}
+                                onChange={handlePageChange}
+                                sx={{ marginBottom: 2 }}
+                            />
+                            <VinAnalysisComponent vin={currentVin} />
+                        </>
                     )}
                 </Box>
             </Paper>
@@ -154,4 +208,4 @@ function ToolPage() {
     );
 }
 
-export default ToolPage;
+export default VinDecoderPage;

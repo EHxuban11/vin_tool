@@ -2,26 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Box, Paper, Container, Button, IconButton, Tooltip } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import vinList from '../data/vin_list.json';
 
-const generateVIN = () => {
-    const characters = 'ABCDEFGHJKLMNPRSTUVWXYZ0123456789';
-    const vin = [];
-    for (let i = 0; i < 17; i++) {
-        vin.push(characters.charAt(Math.floor(Math.random() * characters.length)));
-    }
-    return vin.join('');
+const pickRandomVIN = () => {
+    const randomIndex = Math.floor(Math.random() * vinList.length);
+    return vinList[randomIndex];
 };
 
 function VinGeneratorPage() {
     const [vin, setVin] = useState('');
 
     useEffect(() => {
-        const newVin = generateVIN();
+        const newVin = pickRandomVIN();
         setVin(newVin);
     }, []);
 
     const handleGenerateVIN = () => {
-        const newVin = generateVIN();
+        const newVin = pickRandomVIN();
         setVin(newVin);
     };
 
